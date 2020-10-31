@@ -17,12 +17,16 @@ const Post = () => {
                         and human rights groups. With a focus on Brazil, the Mercosur bloc’s biggest member led by far-right president Jair Bolsonaro, 
                         Julia Lagoutte assesses the threats the deal poses to people and planet, and its prospects going forward.
                     </p>
+                    
                     <div className="right">
                         <button className="btn green accent-4">
                             Read More
                         </button>
                     </div>
                 </div>
+                <div className="card-action grey lighten-4 grey-text">
+                    <div>7 min. read</div>
+                </div>  
             </div>
         </article>
     )

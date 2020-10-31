@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Link = () => {
+const MediaLink = () => {
     return (
         <a href="#" className="tooltipped btn-floating btn-small green accent-4">
             <p>facebook</p>
@@ -8,4 +8,4 @@ const Link = () => {
     )
 }
 
-export default Link;
+export default MediaLink;

@@ -1,13 +1,15 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 // components
-import Link from '../../components/Link/Link';
+import MediaLink from '../../components/MediaLink/MediaLink';
 
 // styles
 import styles from './Navbar.module.scss';
+import SignedInLinks from '../../components/SignedInLinks/SignedInLinks';
+import SignedOutLinks from '../../components/SignedOutLinks/SignedOutLinks';
 
 const Navbar = () => {
     return (
@@ -15,7 +17,7 @@ const Navbar = () => {
             <div className="navbar-fixed">
                 <nav className="nav-wrapper grey darken-4">
                     <div className="container">
-                        <a href="#" className="brand-logo">Julia Lagoutte</a>
+                        <Link to="/" className="brand-logo">Julia Lagoutte</Link>
                         <a href="#" className="sidenav-trigger" data-target="mobile-menu">
                             <i className="material-icons">menu</i>
                         </a>
@@ -45,6 +47,8 @@ const Navbar = () => {
                                     </div>
                                 </a>
                             </li>
+                            <SignedInLinks />
+                            <SignedOutLinks />
                         </ul>
                     </div> 
                 </nav>
