@@ -1,11 +1,11 @@
 import React from 'react';
 
 // images
-import bgpp from '../../assets/images/bgpp-logo-dark-2.jpg';
-import greenWave from '../../assets/images/green-wave-podcast-logo.jpg';
-import greenSpace from '../../assets/images/green-space-logo.jpg';
+import bgpp from '../../../assets/images/bgpp-logo-dark-2.jpg';
+import greenWave from '../../../assets/images/green-wave-podcast-logo.jpg';
+import greenSpace from '../../../assets/images/green-space-logo.jpg';
 
-const LatestContent = () => {
+const PodcastPage = () => {
     return (
         <section className="container section scrollspy" id="photos">
             <div className="row">
@@ -67,4 +67,4 @@ const LatestContent = () => {
     )
 }
 
-export default LatestContent;
+export default PodcastPage;

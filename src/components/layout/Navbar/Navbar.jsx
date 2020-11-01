@@ -4,12 +4,12 @@ import { NavLink, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 // components
-import MediaLink from '../../components/MediaLink/MediaLink';
+import MediaLink from '../MediaLink/MediaLink';
 
 // styles
 import styles from './Navbar.module.scss';
-import SignedInLinks from '../../components/SignedInLinks/SignedInLinks';
-import SignedOutLinks from '../../components/SignedOutLinks/SignedOutLinks';
+import SignedInLinks from '../SignedInLinks/SignedInLinks';
+import SignedOutLinks from '../SignedOutLinks/SignedOutLinks';
 
 const Navbar = () => {
     return (

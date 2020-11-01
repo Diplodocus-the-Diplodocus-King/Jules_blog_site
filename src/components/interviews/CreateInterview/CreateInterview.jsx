@@ -1,10 +1,18 @@
 import React, { useState } from 'react';
 
-const CreateArticle = () => {
+// redux
+import { connect } from 'react-redux';
+import { createArticle } from '../../../store/actions/articleActions';
+
+// actions
+import { createInterview } from '../../../store/actions/interviewActions'; 
+
+const CreateInterview = ({createInterview}) => {
 
     const [formState, setFormState] = useState({
         title: '',
         subject: '',
+        date: new Date(),
         imageUrl: '',
         abstract: '',
         webLink: ''
@@ -35,13 +43,13 @@ const CreateArticle = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(formState);
+        createInterview(formState);
     }
 
     return (
         <div className="container">
             <form onSubmit={handleSubmit} className="white">
-                <h5 className="grey-text text-darken-3">Create Article</h5>
+                <h5 className="grey-text text-darken-3">Create Interview</h5>
                 <div className="input-field">
                     <label htmlFor="title">Title</label>
                     <input type="text" id="title" onChange={handleChange}/>
@@ -70,4 +78,10 @@ const CreateArticle = () => {
     )
 }
 
-export default CreateArticle;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        createInterview: (interview) => dispatch(createInterview(interview))
+    }
+}
+
+export default connect(null, mapDispatchToProps)(CreateInterview);

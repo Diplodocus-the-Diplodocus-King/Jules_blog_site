@@ -1,12 +1,20 @@
 import React, { useState } from 'react';
 
-const CreateInterview = () => {
+// redux
+import { connect } from 'react-redux';
+
+// actions
+import { createArticle } from '../../../store/actions/articleActions'; 
+
+const CreateArticle = ({createArticle}) => {
 
     const [formState, setFormState] = useState({
         title: '',
         subject: '',
+        date: new Date(),
         imageUrl: '',
         abstract: '',
+        content: '',
         webLink: ''
     });
 
@@ -26,6 +34,9 @@ const CreateInterview = () => {
             case 'abstract':
                 currentInput.abstract = e.target.value;
                 break;
+            case 'content':
+                currentInput.content = e.target.value;
+                break;
             case 'webLink':
                 currentInput.webLink = e.target.value;
         }
@@ -35,13 +46,13 @@ const CreateInterview = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(formState);
+        createArticle(formState);
     }
 
     return (
         <div className="container">
             <form onSubmit={handleSubmit} className="white">
-                <h5 className="grey-text text-darken-3">Create Interview</h5>
+                <h5 className="grey-text text-darken-3">Create Article</h5>
                 <div className="input-field">
                     <label htmlFor="title">Title</label>
                     <input type="text" id="title" onChange={handleChange}/>
@@ -59,6 +70,10 @@ const CreateInterview = () => {
                     <textarea id="abstract" onChange={handleChange} className="materialize-textarea"/>
                 </div>
                 <div className="input-field">
+                    <label htmlFor="content">Content</label>
+                    <textarea id="content" onChange={handleChange} className="materialize-textarea"/>
+                </div>
+                <div className="input-field">
                     <label htmlFor="webLink">Web Link</label>
                     <input type="text" id="webLink" onChange={handleChange}/>
                 </div>
@@ -70,4 +85,10 @@ const CreateInterview = () => {
     )
 }
 
-export default CreateInterview;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        createArticle: (article) => dispatch(createArticle(article))
+    }
+}
+
+export default connect(null, mapDispatchToProps)(CreateArticle);

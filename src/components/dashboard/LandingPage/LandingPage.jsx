@@ -1,14 +1,14 @@
 import React from 'react';
 
 // containers & components
-import Profile from '../../components/Profile/Profile';
+import Profile from '../Profile/Profile';
 import LatestContent from '../LatestContent/LatestContent';
-import About from '../../components/About/About';
-import Contact from '../../components/Contact/Contact';
+import About from '../About/About';
+import Contact from '../Contact/Contact';
 
 // images
-import sunflower from '../../assets/images/sunflower-para.jpg';
-import river from '../../assets/images/river-para.jpg';
+import sunflower from '../../../assets/images/sunflower-para.jpg';
+import river from '../../../assets/images/river-para.jpg';
 
 const LandingPage = () => {
     return (
