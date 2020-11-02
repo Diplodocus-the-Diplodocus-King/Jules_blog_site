@@ -5,12 +5,23 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 // redux store
-import { applyMiddleware, createStore } from 'redux';
+import { applyMiddleware, createStore, compose } from 'redux';
 import { Provider } from 'react-redux';
 import rootReducer from './store/reducers/rootReducer';
 import thunk from 'redux-thunk';
 
-const store = createStore(rootReducer, applyMiddleware(thunk));
+// firebase
+import { reduxFirestore, getFirestore } from 'redux-firestore';
+import { reactReduxFirebase, getFirebase } from 'react-redux-firebase';
+import firebaseConfig from './config/firebase';
+
+const store = createStore(rootReducer, 
+  compose(
+    applyMiddleware(thunk.withExtraArgument({getFirebase, getFirestore})),
+    reduxFirestore(firebaseConfig),
+    reactReduxFirebase(firebaseConfig)
+  )
+);
 
 ReactDOM.render(
   <React.StrictMode>
