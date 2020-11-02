@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import M from 'materialize-css';
 
 // styles
 import styles from './Contact.module.scss';
 
 const Contact = () => {
+
+    useEffect(() => {
+        const datePicker = document.querySelector('.datepicker');
+        M.Datepicker.init(datePicker);
+    }, []);
+
     return (
-        <section className="section container scrollspy" id="contact">
+        <section className="section container" id="contact">
             <div className="row">
                 <div className="col s12 l5">
                     <h2 className="green-text text-accent-4">Get In Touch</h2>

@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import M from 'materialize-css';
 
 const About = () => {
+
+    useEffect(() => {
+        const tabs = document.querySelectorAll('.tabs');
+        M.Tabs.init(tabs);
+    }, []);
+
     return (
-        <section className="container section scrollspy" id="services">
+        <section className="container section" id="services">
             <div className="row">
                 <div className="col s12 l4">
                     <h2 className="green-text text-accent-4">What I do...</h2>

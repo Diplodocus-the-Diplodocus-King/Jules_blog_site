@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import M from 'materialize-css';
 
 // components
 import MediaLink from '../MediaLink/MediaLink';
@@ -12,6 +13,15 @@ import SignedInLinks from '../SignedInLinks/SignedInLinks';
 import SignedOutLinks from '../SignedOutLinks/SignedOutLinks';
 
 const Navbar = () => {
+
+    useEffect(() => {
+        const tooltips = document.querySelectorAll('.tooltipped');
+        M.Tooltip.init(tooltips);
+
+        const sideNav = document.querySelector('.sidenav');
+        M.Sidenav.init(sideNav);
+    }, [])
+
     return (
         <header>
             <div className="navbar-fixed">
@@ -27,21 +37,21 @@ const Navbar = () => {
                             <li><NavLink to="/interviews">Interviews</NavLink></li>
                             <li><NavLink to="/podcasts">Podcasts</NavLink></li>
                             <li>
-                                <a href="#" className="tooltipped btn-floating btn-small green accent-4">
+                                <a href="#" className="tooltipped btn-floating btn-small green accent-4" data-tooltip="Instagram">
                                     <div className={styles.icon}>   
                                         <FontAwesomeIcon icon={['fab', 'instagram']} />
                                     </div>
                                 </a>
                             </li>
                             <li>
-                                <a href="#" className="tooltipped btn-floating btn-small green accent-4">
+                                <a href="#" className="tooltipped btn-floating btn-small green accent-4" data-tooltip="Facebook">
                                     <div className={styles.icon}>
                                         <FontAwesomeIcon icon={['fab', 'facebook-square']} />
                                     </div>
                                 </a>
                             </li>
                             <li>
-                                <a href="#" className="tooltipped btn-floating btn-small green accent-4">
+                                <a href="#" className="tooltipped btn-floating btn-small green accent-4" data-tooltip="Twitter">
                                     <div className={styles.icon}>
                                         <FontAwesomeIcon icon={['fab', 'twitter']} />
                                     </div>
