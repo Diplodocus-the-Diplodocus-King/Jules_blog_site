@@ -1,27 +1,52 @@
 import React from 'react';
 
+// redux
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+
+// firestore
+import { firestoreConnect } from 'react-redux-firebase';
+
 const Article = (props) => {
 
-    const id = props.match.params.id;
+    const { article } = props;
 
-    return (
-        <div className="container section project-details">
-            <div className="card z-depth-0">
-                <div className="card-content">
-                    <span className="card-title">Project Title - {id}</span>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                        Corrupti ipsum ipsam accusamus adipisci doloremque culpa vel architecto ut nulla, 
-                        accusantium totam enim error aliquid eligendi in deleniti. Nam, eius odio?
-                    </p>
-                </div>
-                <div className="card-action grey lighten-4 grey-text">
-                    <div>Posted by Diplodocus</div>
-                    <div>31st October, 3pm</div>
-                </div>
+    if (article) {
+        return (
+            <div className="container section project-details">
+                <h3>{article.title}</h3>
+                <h4 className="green-text text-accent-4">{article.subject}</h4>
+                <p className="flow-text">{article.abstract}</p>
+                <img src={article.imgUrl} alt="article_img"/>
+                <p>{article.content}</p>
+                <div>Posted by {article.info}</div>
+                <div>{article.created}</div>
             </div>
-        </div>
-    )
+        )
+    } else {
+        return (
+            <div className="container center">
+                <p className="flow-text">Loading article...</p>
+            </div>
+        )
+    }
+    
 }
 
-export default Article;
+const mapStateToProps = (state, ownProps) => {
+    
+    const id = ownProps.match.params.id;
+    const articles = state.firestore.data.articles;
+    const article = articles ? articles[id] : null;
+
+    return {
+        article: article
+    }
+}
+
+export default compose(
+    connect(mapStateToProps),
+    firestoreConnect([
+        {collection: 'articles'}
+    ])
+)(Article);

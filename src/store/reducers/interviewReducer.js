@@ -46,8 +46,13 @@ const interviewReducer = (state = initState, action) => {
     switch (action.type) {
         case 'CREATE_INTERVIEW':
             console.log('interview created', action.interview);
+            return state;
+        case 'CREATE_INTERVIEW_ERROR':
+            console.log('create interview error', action.error);
+            return state;
+        default:
+            return state;
     }
-    return state;
 }
 
 export default interviewReducer;

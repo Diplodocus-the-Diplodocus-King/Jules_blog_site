@@ -11,11 +11,12 @@ const CreateArticle = ({createArticle}) => {
     const [formState, setFormState] = useState({
         title: '',
         subject: '',
-        date: new Date(),
-        imageUrl: '',
+        info: '',
         abstract: '',
         content: '',
-        webLink: ''
+        webLink: '',
+        imageUrl: '',
+        created: new Date().toDateString()
     });
 
     const handleChange = (e) => {
@@ -28,8 +29,8 @@ const CreateArticle = ({createArticle}) => {
             case 'subject':
                 currentInput.subject = e.target.value;
                 break;
-            case 'imageUrl':
-                currentInput.imageUrl = e.target.value;
+            case 'info':
+                currentInput.info = e.target.value;
                 break;
             case 'abstract':
                 currentInput.abstract = e.target.value;
@@ -39,6 +40,9 @@ const CreateArticle = ({createArticle}) => {
                 break;
             case 'webLink':
                 currentInput.webLink = e.target.value;
+                break;
+            case 'imageUrl':
+                currentInput.imageUrl = e.target.value;            
         }
 
         setFormState(currentInput);
@@ -62,16 +66,20 @@ const CreateArticle = ({createArticle}) => {
                     <input type="text" id="subject" onChange={handleChange}/>
                 </div>
                 <div className="input-field">
-                    <label htmlFor="imageUrl">Image URL</label>
-                    <input type="text" id="imageUrl" onChange={handleChange}/>
-                </div>
-                <div className="input-field">
                     <label htmlFor="abstract">Abstract</label>
                     <textarea id="abstract" onChange={handleChange} className="materialize-textarea"/>
                 </div>
                 <div className="input-field">
                     <label htmlFor="content">Content</label>
                     <textarea id="content" onChange={handleChange} className="materialize-textarea"/>
+                </div>
+                <div className="input-field">
+                    <label htmlFor="info">Additional info</label>
+                    <input type="text" id="info" onChange={handleChange}/>
+                </div>
+                <div className="input-field">
+                    <label htmlFor="imageUrl">Image URL</label>
+                    <input type="text" id="imageUrl" onChange={handleChange}/>
                 </div>
                 <div className="input-field">
                     <label htmlFor="webLink">Web Link</label>

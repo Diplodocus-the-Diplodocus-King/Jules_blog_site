@@ -3,13 +3,17 @@ import authReducer from './authReducer';
 import articleReducer from './articleReducer';
 import interviewReducer from './interviewReducer';
 
-// import combine
+// redux
 import { combineReducers } from 'redux';
+
+// firestore
+import { firestoreReducer } from 'redux-firestore';
 
 const rootReducer = combineReducers({
     auth: authReducer,
     article: articleReducer,
-    interview: interviewReducer
+    interview: interviewReducer,
+    firestore: firestoreReducer
 });
 
 export default rootReducer;

@@ -5,6 +5,10 @@ import Post from '../../posts/Post/Post';
 
 // import redux store
 import { connect } from 'react-redux';
+import { compose } from 'redux';
+
+// firestore
+import { firestoreConnect } from 'react-redux-firebase';
 
 const ArticlesPage = ({articles}) => {
 
@@ -23,8 +27,13 @@ const ArticlesPage = ({articles}) => {
 
 const mapStateToProps = (state) => {
     return {
-        articles: state.article.articles
+        articles: state.firestore.ordered.articles
     }
 }
 
-export default connect(mapStateToProps)(ArticlesPage);
+export default compose(
+    connect(mapStateToProps),
+    firestoreConnect([
+        {collection: 'articles'}
+    ])
+)(ArticlesPage);

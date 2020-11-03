@@ -12,10 +12,11 @@ const CreateInterview = ({createInterview}) => {
     const [formState, setFormState] = useState({
         title: '',
         subject: '',
-        date: new Date(),
-        imageUrl: '',
+        info: '',
         abstract: '',
-        webLink: ''
+        webLink: '',
+        imageUrl: '',
+        created: new Date().toDateString()  
     });
 
     const handleChange = (e) => {
@@ -28,14 +29,17 @@ const CreateInterview = ({createInterview}) => {
             case 'subject':
                 currentInput.subject = e.target.value;
                 break;
-            case 'imageUrl':
-                currentInput.imageUrl = e.target.value;
+            case 'info':
+                currentInput.info = e.target.value;
                 break;
             case 'abstract':
                 currentInput.abstract = e.target.value;
                 break;
             case 'webLink':
                 currentInput.webLink = e.target.value;
+                break;
+            case 'imageUrl':
+                currentInput.imageUrl = e.target.value;
         }
 
         setFormState(currentInput);
@@ -59,12 +63,16 @@ const CreateInterview = ({createInterview}) => {
                     <input type="text" id="subject" onChange={handleChange}/>
                 </div>
                 <div className="input-field">
-                    <label htmlFor="imageUrl">Image URL</label>
-                    <input type="text" id="imageUrl" onChange={handleChange}/>
-                </div>
-                <div className="input-field">
                     <label htmlFor="abstract">Abstract</label>
                     <textarea id="abstract" onChange={handleChange} className="materialize-textarea"/>
+                </div>
+                <div className="input-field">
+                    <label htmlFor="info">Additional info</label>
+                    <input type="text" id="info" onChange={handleChange}/>
+                </div>
+                <div className="input-field">
+                    <label htmlFor="imageUrl">Image URL</label>
+                    <input type="text" id="imageUrl" onChange={handleChange}/>
                 </div>
                 <div className="input-field">
                     <label htmlFor="webLink">Web Link</label>

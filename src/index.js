@@ -11,21 +11,32 @@ import rootReducer from './store/reducers/rootReducer';
 import thunk from 'redux-thunk';
 
 // firebase
-import { reduxFirestore, getFirestore } from 'redux-firestore';
-import { reactReduxFirebase, getFirebase } from 'react-redux-firebase';
+import { reduxFirestore, getFirestore, createFirestoreInstance } from 'redux-firestore';
+import { ReactReduxFirebaseProvider, getFirebase } from 'react-redux-firebase';
 import firebaseConfig from './config/firebase';
+import firebase from 'firebase/app';
 
 const store = createStore(rootReducer, 
   compose(
     applyMiddleware(thunk.withExtraArgument({getFirebase, getFirestore})),
-    reduxFirestore(firebaseConfig),
-    reactReduxFirebase(firebaseConfig)
+    reduxFirestore(firebaseConfig)
   )
 );
 
+const rrfProps = {
+  firebase,
+  config: firebaseConfig,
+  dispatch: store.dispatch,
+  createFirestoreInstance
+};
+
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}><App /></Provider>
+    <Provider store={store}>
+      <ReactReduxFirebaseProvider {...rrfProps}>
+        <App />
+      </ReactReduxFirebaseProvider>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
