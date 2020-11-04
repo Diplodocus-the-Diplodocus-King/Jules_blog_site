@@ -12,6 +12,9 @@ import styles from './Navbar.module.scss';
 import SignedInLinks from '../SignedInLinks/SignedInLinks';
 import SignedOutLinks from '../SignedOutLinks/SignedOutLinks';
 
+// redux
+import { connect } from 'react-redux';
+
 const Navbar = () => {
 
     useEffect(() => {
@@ -73,4 +76,11 @@ const Navbar = () => {
     )
 }
 
-export default Navbar;
+const mapStateToProps = (state) => {
+    console.log(state);
+    return {
+
+    }
+}
+
+export default connect(mapStateToProps)(Navbar);
