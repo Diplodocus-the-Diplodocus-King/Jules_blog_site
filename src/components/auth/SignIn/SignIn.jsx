@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
 
 // redux
 import { connect } from 'react-redux';
@@ -6,7 +7,7 @@ import { connect } from 'react-redux';
 // actions
 import { signIn } from '../../../store/actions/authActions';
 
-const SignIn = ({signIn, authError}) => {
+const SignIn = ({signIn, authError, auth}) => {
 
     const [formState, setFormState] = useState({
         email: '',
@@ -32,6 +33,8 @@ const SignIn = ({signIn, authError}) => {
 
     const loginOutcome = authError ? <p>{authError}</p> : null
 
+    if(auth.uid) return <Redirect to='/' />
+
     return (
         <div className="container">
             <form onSubmit={handleSubmit} className="white">
@@ -55,7 +58,8 @@ const SignIn = ({signIn, authError}) => {
 
 const mapStateToProps = (state) => {
     return {
-        authError: state.auth.authError
+        authError: state.auth.authError,
+        auth: state.firebase.auth
     }
 }
 

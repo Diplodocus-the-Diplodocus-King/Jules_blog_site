@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
 
 // redux
 import { connect } from 'react-redux';
@@ -6,7 +7,7 @@ import { connect } from 'react-redux';
 // actions
 import { createArticle } from '../../../store/actions/articleActions'; 
 
-const CreateArticle = ({createArticle}) => {
+const CreateArticle = ({createArticle, auth}) => {
 
     const [formState, setFormState] = useState({
         title: '',
@@ -53,6 +54,8 @@ const CreateArticle = ({createArticle}) => {
         createArticle(formState);
     }
 
+    if(!auth.uid) return <Redirect to='/signin' />
+
     return (
         <div className="container">
             <form onSubmit={handleSubmit} className="white">
@@ -93,10 +96,16 @@ const CreateArticle = ({createArticle}) => {
     )
 }
 
+const mapStateToProps = (state) => {
+    return {
+        auth: state.firebase.auth
+    }
+}
+
 const mapDispatchToProps = (dispatch) => {
     return {
         createArticle: (article) => dispatch(createArticle(article))
     }
 }
 
-export default connect(null, mapDispatchToProps)(CreateArticle);
+export default connect(mapStateToProps, mapDispatchToProps)(CreateArticle);

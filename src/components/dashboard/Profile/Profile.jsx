@@ -1,11 +1,12 @@
 import React from 'react';
+import profile from '../../../assets/images/profile.jpg';
 
 const Profile = () => {
     return (
         <section className="container section scrollspy" id="about">
             <div className="row">
                 <div className="col s12 l4">
-                    <img src="https://via.placeholder.com/250" alt="" className="responsive-img circle"/>
+                    <img src={"https://via.placeholder.com/250"} alt="" className="responsive-img circle"/>
                 </div>
                 <div className="col s12 l8">
                     <h2 className="green-text text-accent-4">Hello.</h2>

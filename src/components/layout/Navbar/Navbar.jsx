@@ -15,7 +15,7 @@ import SignedOutLinks from '../SignedOutLinks/SignedOutLinks';
 // redux
 import { connect } from 'react-redux';
 
-const Navbar = () => {
+const Navbar = ({auth}) => {
 
     useEffect(() => {
         const tooltips = document.querySelectorAll('.tooltipped');
@@ -24,6 +24,8 @@ const Navbar = () => {
         const sideNav = document.querySelector('.sidenav');
         M.Sidenav.init(sideNav);
     }, [])
+
+    const links = auth.uid ? <SignedInLinks /> : <SignedOutLinks />
 
     return (
         <header>
@@ -60,8 +62,7 @@ const Navbar = () => {
                                     </div>
                                 </a>
                             </li>
-                            <SignedInLinks />
-                            <SignedOutLinks />
+                            {auth.isLoaded && links}
                         </ul>
                     </div> 
                 </nav>
@@ -77,9 +78,8 @@ const Navbar = () => {
 }
 
 const mapStateToProps = (state) => {
-    console.log(state);
     return {
-
+        auth: state.firebase.auth
     }
 }
 

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
 
 // redux
 import { connect } from 'react-redux';
@@ -7,7 +8,7 @@ import { createArticle } from '../../../store/actions/articleActions';
 // actions
 import { createInterview } from '../../../store/actions/interviewActions'; 
 
-const CreateInterview = ({createInterview}) => {
+const CreateInterview = ({createInterview, auth}) => {
 
     const [formState, setFormState] = useState({
         title: '',
@@ -50,6 +51,8 @@ const CreateInterview = ({createInterview}) => {
         createInterview(formState);
     }
 
+    if(!auth.uid) return <Redirect to='/signin' />
+
     return (
         <div className="container">
             <form onSubmit={handleSubmit} className="white">
@@ -86,10 +89,16 @@ const CreateInterview = ({createInterview}) => {
     )
 }
 
+const mapStateToProps = (state) => {
+    return {
+        auth: state.firebase.auth
+    }
+}
+
 const mapDispatchToProps = (dispatch) => {
     return {
         createInterview: (interview) => dispatch(createInterview(interview))
     }
 }
 
-export default connect(null, mapDispatchToProps)(CreateInterview);
+export default connect(mapStateToProps, mapDispatchToProps)(CreateInterview);
