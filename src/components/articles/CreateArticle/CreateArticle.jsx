@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 // actions
 import { createArticle } from '../../../store/actions/articleActions'; 
 
-const CreateArticle = ({createArticle, auth}) => {
+const CreateArticle = ({createArticle, auth, history}) => {
 
     const [formState, setFormState] = useState({
         title: '',
@@ -17,7 +17,7 @@ const CreateArticle = ({createArticle, auth}) => {
         content: '',
         webLink: '',
         imageUrl: '',
-        created: new Date().toDateString()
+        created: new Date()
     });
 
     const handleChange = (e) => {
@@ -52,6 +52,7 @@ const CreateArticle = ({createArticle, auth}) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         createArticle(formState);
+        history.push('/articles');
     }
 
     if(!auth.uid) return <Redirect to='/signin' />

@@ -8,7 +8,7 @@ import { createArticle } from '../../../store/actions/articleActions';
 // actions
 import { createInterview } from '../../../store/actions/interviewActions'; 
 
-const CreateInterview = ({createInterview, auth}) => {
+const CreateInterview = ({createInterview, auth, history}) => {
 
     const [formState, setFormState] = useState({
         title: '',
@@ -17,7 +17,7 @@ const CreateInterview = ({createInterview, auth}) => {
         abstract: '',
         webLink: '',
         imageUrl: '',
-        created: new Date().toDateString()  
+        created: new Date() 
     });
 
     const handleChange = (e) => {
@@ -49,6 +49,7 @@ const CreateInterview = ({createInterview, auth}) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         createInterview(formState);
+        history.push('/interviews');
     }
 
     if(!auth.uid) return <Redirect to='/signin' />
