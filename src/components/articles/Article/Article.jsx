@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 
 // redux
 import { connect } from 'react-redux';
@@ -20,7 +21,7 @@ const Article = (props) => {
                 <img src={article.imgUrl} alt="article_img"/>
                 <p>{article.content}</p>
                 <div>Posted by {article.info}</div>
-                <div>{article.created}</div>
+                <div>{moment(article.created.toDate()).calendar()}</div>
             </div>
         )
     } else {
