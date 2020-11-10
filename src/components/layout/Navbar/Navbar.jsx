@@ -23,6 +23,9 @@ const Navbar = ({auth}) => {
 
         const sideNav = document.querySelector('.sidenav');
         M.Sidenav.init(sideNav);
+
+        const dropDown = document.querySelector('.dropdown-trigger');
+        M.Dropdown.init(dropDown);
     }, [])
 
     const links = auth.uid ? <SignedInLinks /> : <SignedOutLinks />
@@ -32,7 +35,7 @@ const Navbar = ({auth}) => {
             <div className="navbar-fixed">
                 <nav className="nav-wrapper grey darken-4">
                     <div className="container">
-                        <Link to="/" className="brand-logo">Julia Lagoutte</Link>
+                        <Link to="/" className="brand-logo">JL</Link>
                         <a href="#" className="sidenav-trigger" data-target="mobile-menu">
                             <i className="material-icons">menu</i>
                         </a>
@@ -62,11 +65,18 @@ const Navbar = ({auth}) => {
                                     </div>
                                 </a>
                             </li>
-                            {auth.isLoaded && links}
+                            <li>
+                                <a className="dropdown-trigger" href="#!" data-target="dropdownnav">
+                                    Admin <i className="material-icons right">arrow_drop_down</i>
+                                </a>
+                            </li>
                         </ul>
                     </div> 
                 </nav>
             </div>
+            <ul className="dropdown-content grey darken-4" id="dropdownnav">
+                {auth.isLoaded && links}
+            </ul>
             <ul className="sidenav grey lighen-2" id="mobile-menu">
                 <li><NavLink to="/">Home</NavLink></li>
                 <li><NavLink to="/articles">Articles</NavLink></li>

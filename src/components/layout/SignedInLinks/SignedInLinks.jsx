@@ -10,9 +10,10 @@ import { signOut } from '../../../store/actions/authActions';
 const SignedInLinks = ({signOut}) => {
     return (
         <>
-            <li><NavLink to='/createarticle'>Create Article</NavLink></li>
-            <li><NavLink to='/createinterview'>Create Interview</NavLink></li>
-            <li><a onClick={signOut}>Log Out</a></li>
+            <li><NavLink to='/createarticle' className="green-text text-accent-4">Create Article</NavLink></li>
+            <li><NavLink to='/createinterview' className="green-text text-accent-4">Create Interview</NavLink></li>
+            <li className="divider"></li>
+            <li><a className="green-text text-accent-4" onClick={signOut}>Log Out</a></li>
         </>
     )
 }

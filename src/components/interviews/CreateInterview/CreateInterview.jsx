@@ -57,7 +57,7 @@ const CreateInterview = ({createInterview, auth, history}) => {
     return (
         <div className="container">
             <form onSubmit={handleSubmit} className="white">
-                <h5 className="grey-text text-darken-3">Create Interview</h5>
+                <h3 className="green-text text-accent-4 center">Create Interview</h3>
                 <div className="input-field">
                     <label htmlFor="title">Title</label>
                     <input type="text" id="title" onChange={handleChange}/>
