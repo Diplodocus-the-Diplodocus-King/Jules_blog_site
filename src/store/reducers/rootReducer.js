@@ -2,6 +2,7 @@
 import authReducer from './authReducer';
 import articleReducer from './articleReducer';
 import interviewReducer from './interviewReducer';
+import contentReducer from './contentReducer';
 
 // redux
 import { combineReducers } from 'redux';
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
     auth: authReducer,
     article: articleReducer,
     interview: interviewReducer,
+    content: contentReducer,
     firestore: firestoreReducer,
     firebase: firebaseReducer
 });

@@ -4,49 +4,55 @@ import M from 'materialize-css';
 // styles
 import styles from './Contact.module.scss';
 
-const Contact = () => {
+// import redux store
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+
+// firestore
+import { firestoreConnect } from 'react-redux-firebase';
+
+const Contact = ({contents}) => {
+    
+    const contact = contents && contents.find(content => content.id === 'contact');
 
     useEffect(() => {
         const datePicker = document.querySelector('.datepicker');
         M.Datepicker.init(datePicker);
     }, []);
 
+    const renderContent = contact !== undefined ? (
+        <>
+            <h2 className="green-text text-accent-4">{contact.header}</h2>
+            <p>{contact.content1}</p>
+            <p>{contact.content2}</p> 
+        </>
+    ) : (
+        <div className="progress">
+            <div className="indeterminate green accent-4"></div>
+        </div>
+    );
+
     return (
         <section className="section container" id="contact">
             <div className="row">
                 <div className="col s12 l5">
-                    <h2 className="green-text text-accent-4">Get In Touch</h2>
-                    <p>
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veniam adipisci voluptatum accusamus 
-                    rem quidem sequi corporis sapiente harum accusantium voluptas,
-                    eos, voluptatibus dolorum, commodi quae. Architecto corporis enim inventore dolorem!
-                    </p>
-                    <p>
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veniam adipisci voluptatum accusamus 
-                    rem quidem sequi corporis sapiente harum accusantium voluptas,
-                    eos, voluptatibus dolorum, commodi quae. Architecto corporis enim inventore dolorem!
-                    </p>
-                    <p>
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veniam adipisci voluptatum accusamus 
-                    rem quidem sequi corporis sapiente harum accusantium voluptas,
-                    eos, voluptatibus dolorum, commodi quae. Architecto corporis enim inventore dolorem!
-                    </p>
+                    {renderContent} 
                 </div>
                 <div className="col s12 l5 offset-l2">
                     <form action="">
                     <div className="input-field">
                         <i className="material-icons prefix green-text text-accent-4">email</i>
                         <input type="email" id="email" className={styles.inputfield} required/>
-                        <label for="email">Your Email</label>
+                        <label htmlFor="email">Your Email</label>
                     </div>
                     <div className="input-field">
                         <i className="material-icons prefix green-text text-accent-4">message</i>
                         <textarea id="message" className="materialize-textarea" required></textarea>
-                        <label for="message">Your Message</label>
+                        <label htmlFor="message">Your Message</label>
                     </div>
                     <div className="input-field">
                         <input type="text" id="date" className="datepicker"/>
-                        <label for="date">Choose a date you need me for...</label>
+                        <label htmlFor="date">Choose a date you need me for...</label>
                     </div>
                     <div className="input-field">
                         <p>Services Required...</p>
@@ -79,4 +85,15 @@ const Contact = () => {
     )
 }
 
-export default Contact;
+const mapStateToProps = (state) => {
+    return {
+        contents: state.firestore.ordered.contents
+    }
+}
+
+export default compose(
+    connect(mapStateToProps),
+    firestoreConnect([
+        {collection: 'contents'}
+    ])
+)(Contact);

@@ -3,7 +3,6 @@ import { Redirect } from 'react-router-dom';
 
 // redux
 import { connect } from 'react-redux';
-import { createArticle } from '../../../store/actions/articleActions';
 
 // actions
 import { createInterview } from '../../../store/actions/interviewActions'; 
