@@ -18,14 +18,13 @@ const Profile = ({auth, contents, editContent}) => {
 
     const [editContentState, setEditContentState] = useState({
         docId: '',
-        contentId: '',
-        content: ''
+        fields: {}
     });
 
     useEffect(() => {
         const modals = document.querySelectorAll('.modal');
         M.Modal.init(modals);
-    }, [])
+    }, []);
 
     const profile = contents && contents.find(content => content.id === 'profile');
 
@@ -34,14 +33,14 @@ const Profile = ({auth, contents, editContent}) => {
         const contentTarget = e.target.parentElement.parentElement.id.split('-');
 
         updateState.docId = contentTarget[0];
-        updateState.contentId = contentTarget[1];
 
         setEditContentState(updateState);
     }
 
     const handleChange = (e) => {
         const updateState = {...editContentState};
-        updateState.content = e.target.value;
+        const fieldName = e.target.getAttribute('id').split('-');
+        updateState.fields[`${fieldName[1]}`] = e.target.value;
         setEditContentState(updateState);
     }
 
@@ -51,21 +50,16 @@ const Profile = ({auth, contents, editContent}) => {
     }
 
     const editContentBtn = auth.uid ? (
-        <button className="btn-floating btn-small green accent-4 waves-effect waves-light right modal-trigger" data-target="modalEdit" onClick={handleClick}>
+        <button className="btn-floating btn-small green accent-4 waves-effect waves-light right modal-trigger" data-target="modalEditProfile" onClick={handleClick}>
             <i className="material-icons">edit</i>
         </button>
     ) : null;
 
     const renderContent = profile !== undefined ? (
-        <>
-        <div className="valign-wrapper">
+        <>  
             <h2 className="green-text text-accent-4">{profile.header}</h2>
-            <div id="profile-header">{editContentBtn}</div>
-        </div>
-        <div className="valign-wrapper">
+            <div id="profile-edit">{editContentBtn}</div>
             <p className="flow-text">{profile.content}</p>
-            <div id="profile-content">{editContentBtn}</div>
-        </div> 
         </>
     ) : (
         <div className="progress">
@@ -83,12 +77,17 @@ const Profile = ({auth, contents, editContent}) => {
                     {renderContent}
                 </div>
             </div>
-            <div id="modalEdit" className="modal">
+            <div id="modalEditProfile" className="modal">
                 <div className="modal-content">
                     <form onSubmit={handleSubmit}>
+                        <h5>Edit Profile</h5>
                         <div className="input-field">
-                            <label htmlFor="edit">Edit</label>
-                            <input type="text" id="edit" onChange={handleChange}/>
+                            <label htmlFor="profile-header">Title</label>
+                            <input type="text" id="profile-header" onChange={handleChange}/>
+                        </div>
+                        <div className="input-field">
+                            <label htmlFor="profile-content">Bio</label>
+                            <input type="text" id="profile-content" onChange={handleChange}/>
                         </div>
                         <div className="modal-footer">
                             <button type="submit" className="btn modal-close green accent-4 wave-effect waves-light">Submit</button>
