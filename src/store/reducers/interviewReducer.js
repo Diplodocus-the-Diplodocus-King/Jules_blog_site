@@ -50,6 +50,12 @@ const interviewReducer = (state = initState, action) => {
         case 'CREATE_INTERVIEW_ERROR':
             console.log('create interview error', action.error);
             return state;
+        case 'DELETE_INTERVIEW':
+            console.log('interview deleted', action.interview);
+            return state;
+        case 'DELETE_INTERVIEW_ERROR':
+            console.log('delete interview error', action.error);
+            return state;
         default:
             return state;
     }

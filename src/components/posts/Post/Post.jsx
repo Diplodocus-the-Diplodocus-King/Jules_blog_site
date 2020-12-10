@@ -2,10 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 
+// import redux store
+import { connect } from 'react-redux';
+
 //styles
 import styles from './Post.module.scss';
 
-const Post = ({data}) => {
+const Post = ({data, auth, handleDelete}) => {
 
     const renderLink = () => {
         if (data.webLink.length){
@@ -23,11 +26,20 @@ const Post = ({data}) => {
         }
     }
 
+    const renderDelete = auth.uid ? (
+        <button className="btn-floating btn-small green accent-4 waves-effect waves-light right" onClick={() => handleDelete(data)}>
+            <i className="material-icons">delete</i>
+        </button>
+    ) : null;
+
     return (
         <article className="container">
             <div className="post card">
                 <div className="card-content row">
                 <img src={data.image} alt="placeholder" className="col s3 m3 l3"/>
+                <div className="right">
+                    {renderDelete}
+                </div>
                     <h4 className="col s9 m9 l9">{data.title}</h4>
                     <p className="col s9 m9 l9 flow-text green-text text-accent-4">{moment(data.created.toDate()).calendar()} ({data.subject})</p>
                     <p className="col s9 m9 l9">{data.abstract}</p>                    
@@ -43,4 +55,10 @@ const Post = ({data}) => {
     )
 }
 
-export default Post;
+const mapStateToProps = (state) => {
+    return {
+        auth: state.firebase.auth
+    }
+}
+
+export default connect(mapStateToProps)(Post);

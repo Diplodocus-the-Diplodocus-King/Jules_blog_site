@@ -65,7 +65,7 @@ const Profile = ({auth, contents, editContent}) => {
         <div className="progress">
             <div className="indeterminate green accent-4"></div>
         </div>
-    )
+    );
 
     return (
         <section className="container section scrollspy" id="about">
