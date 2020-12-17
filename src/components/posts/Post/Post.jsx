@@ -26,6 +26,18 @@ const Post = ({data, auth, handleDelete}) => {
         }
     }
 
+    const createParas = (content) => {
+        const parasArray = content.split('\n').map((para, index) => {
+            return <p className="col s12 m12 l12" key={`para${index}`}>{para}</p>
+        });
+        
+        return (
+            <>
+                {parasArray}
+            </>
+        );  
+    }
+
     const renderDelete = auth.uid ? (
         <button className="btn-floating btn-small green accent-4 waves-effect waves-light right" onClick={() => handleDelete(data)}>
             <i className="material-icons">delete</i>
@@ -36,13 +48,15 @@ const Post = ({data, auth, handleDelete}) => {
         <article className="container">
             <div className="post card">
                 <div className="card-content row">
-                <img src={data.image} alt="placeholder" className="col s3 m3 l3"/>
+                <img src={data.imageUrl} alt="placeholder" className="col s3 m3 l3"/>
                 <div className="right">
                     {renderDelete}
                 </div>
                     <h4 className="col s9 m9 l9">{data.title}</h4>
                     <p className="col s9 m9 l9 flow-text green-text text-accent-4">{moment(data.created.toDate()).calendar()} ({data.subject})</p>
-                    <p className="col s9 m9 l9">{data.abstract}</p>                    
+                    <div className="col s12 m12 l12">
+                    {createParas(data.abstract)}
+                    </div>            
                     <div className="right">
                         {renderLink()}
                     </div>
