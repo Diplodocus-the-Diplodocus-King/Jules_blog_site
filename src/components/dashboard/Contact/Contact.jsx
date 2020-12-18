@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import M from 'materialize-css';
 
+import AOS from 'aos';
+import "aos/dist/aos.css";
+
 // styles
 import styles from './Contact.module.scss';
 
@@ -28,6 +31,10 @@ const Contact = ({auth, contents, editContent}) => {
         const modals = document.querySelectorAll('.modal');
         M.Datepicker.init(datePicker);
         M.Modal.init(modals);
+        AOS.init({
+            duration: 2000
+        });
+        AOS.refresh();
     }, []);
 
     const handleClick = (e) => {
@@ -74,7 +81,7 @@ const Contact = ({auth, contents, editContent}) => {
     return (
         <section className="section container" id="contact">
             <div className="row">
-                <div className="col s12 l5">
+                <div className="col s12 l5" data-aos="fade-right">
                     {renderContent} 
                 </div>
                 <div className="col s12 l5 offset-l2">

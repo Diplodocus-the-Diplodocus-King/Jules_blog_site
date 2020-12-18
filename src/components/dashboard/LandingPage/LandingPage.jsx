@@ -23,13 +23,15 @@ const LandingPage = () => {
         <div className="landing-page">
             <Profile />
             <LatestContent />
-            <div className="parallax-container">
+            <hr className="container grey darken-1 hide-on-med-and-up"/>
+            <div className="parallax-container hide-on-small-only">
                 <div className="parallax">
                     <img src={sunflower} alt="" className="responsive-img"/>
                 </div>
             </div>
             <About />
-            <div className="parallax-container">
+            <hr className="container grey darken-1 hide-on-med-and-up"/>
+            <div className="parallax-container hide-on-small-only">
                 <div className="parallax">
                 <img src={river} alt="" className="responsive-img"/>
                 </div>

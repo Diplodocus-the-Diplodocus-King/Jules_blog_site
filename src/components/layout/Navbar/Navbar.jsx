@@ -34,8 +34,8 @@ const Navbar = ({auth}) => {
         <header>
             <div className="navbar-fixed">
                 <nav className="nav-wrapper grey darken-4">
-                    <div className="container">
-                        <Link to="/" className="brand-logo">JL</Link>
+                    <div className="nav-container">
+                        <Link to="/" className="brand-logo">Julia Lagoutte</Link>
                         <a href="#" className="sidenav-trigger" data-target="mobile-menu">
                             <i className="material-icons">menu</i>
                         </a>

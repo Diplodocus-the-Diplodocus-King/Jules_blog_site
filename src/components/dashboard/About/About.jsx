@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import M from 'materialize-css';
 
+import AOS from 'aos';
+import "aos/dist/aos.css";
+
 // import redux store
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -23,6 +26,10 @@ const About = ({auth, contents, editContent}) => {
     useEffect(() => {
         const modals = document.querySelectorAll('.modal');
         M.Modal.init(modals);
+        AOS.init({
+            duration: 2000
+        });
+        AOS.refresh();
     }, [])
 
     const about = contents && contents.find(content => content.id === 'about');
@@ -74,13 +81,13 @@ const About = ({auth, contents, editContent}) => {
 
     const renderContent = about !== undefined ? (
         <div className="row">
-            <div className="col s12 l4">
+            <div className="col s12 l5" data-aos="fade-right">
                     <h2 className="green-text text-accent-4">{about.header}</h2>
                     <p>{about.content1}</p>        
                     <p>{about.content2}</p>
                     <div id="about-edit">{editContentBtn}</div>
             </div>
-            <div className="col s12 l6 offset-l2">
+            <div className="col s12 l6 offset-l1" data-aos="fade-left">
                 <ul className="tabs">
                 <li className="tab col s6">
                     <a href="#writing" className="green-text text-accent-4">{about.tab1Title}</a>
@@ -90,13 +97,13 @@ const About = ({auth, contents, editContent}) => {
                 </li>
                 </ul>
                 <div className="col s12" id="writing">
-                        <p className="flow-text green-text text-accent-4">{about.tab1Header}</p>
+                        <p className="flow-text grey-text text-darken-4">{about.tab1Header}</p>
                         <p>{about.tab1ContentA}</p>
                         <p>{about.tab1ContentB}</p>
                         <div id="about-tab1-edit">{editTabContentBtn}</div>
                 </div>
                 <div className="col s12" id="podcasting">
-                        <p className="flow-text green-text text-accent-4">{about.tab2Header}</p>
+                        <p className="flow-text grey-text text-darken-4">{about.tab2Header}</p>
                         <p>{about.tab2ContentA}</p>
                         <p>{about.tab2ContentB}</p>
                         <div id="about-tab2-edit">{editTabContentBtn}</div>

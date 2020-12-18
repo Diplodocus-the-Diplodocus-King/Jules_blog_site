@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import profile from '../../../assets/images/profile.jpg';
+import profileImage from '../../../assets/images/profile.jpg';
 import M from 'materialize-css';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import AOS from 'aos';
+import "aos/dist/aos.css";
 
 // import redux store
 import { connect } from 'react-redux';
@@ -24,6 +25,10 @@ const Profile = ({auth, contents, editContent}) => {
     useEffect(() => {
         const modals = document.querySelectorAll('.modal');
         M.Modal.init(modals);
+        AOS.init({
+            duration: 2000
+        });
+        AOS.refresh();
     }, []);
 
     const profile = contents && contents.find(content => content.id === 'profile');
@@ -69,11 +74,11 @@ const Profile = ({auth, contents, editContent}) => {
 
     return (
         <section className="container section scrollspy" id="about">
-            <div className="row">
-                <div className="col s12 l4">
-                    <img src={"https://via.placeholder.com/250"} alt="" className="responsive-img circle"/>
+            <div className="row" data-aos="fade-down">
+                <div className="col s12 m4 l3 center">
+                    <img src={profileImage} alt="" className="responsive-img circle"/>
                 </div>
-                <div className="col s12 l8">
+                <div className="col s12 m7 l8">
                     {renderContent}
                 </div>
             </div>

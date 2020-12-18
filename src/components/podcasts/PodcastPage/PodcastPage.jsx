@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+
+import AOS from 'aos';
+import "aos/dist/aos.css";
 
 // images
 import bgpp from '../../../assets/images/bgpp-logo-dark-2.jpg';
@@ -6,9 +9,17 @@ import greenWave from '../../../assets/images/green-wave-podcast-logo.jpg';
 import greenSpace from '../../../assets/images/green-space-logo.jpg';
 
 const PodcastPage = () => {
+
+    useEffect(() => {
+        AOS.init({
+            duration: 2000
+        });
+        AOS.refresh();
+    }, []);
+
     return (
         <section className="container section scrollspy" id="photos">
-            <div className="row">
+            <div className="row" data-aos="fade-left">
                 <div className="col s12 l4 push-l7 offset-l1">
                     <img src={bgpp} alt="not found" className="responsive-img"/>
                 </div>
@@ -22,11 +33,16 @@ const PodcastPage = () => {
                         Available on all podcast apps including Itunes, Spotify, Google and on Souncloud.
                     </p>                
                     <p>
-                        Come join the debate! Follow us on Twitter and like us on Facebook.
+                        Come 
+                        <a href="https://soundcloud.com/biggreenpoliticspodcast" target="_blank" rel="noreferrer noopener"> join </a> 
+                        the debate! Follow us on 
+                        <a href="https://twitter.com/biggreenpolpod" target="_blank" rel="noreferrer noopener"> Twitter </a>
+                        and like us on
+                        <a href="https://www.facebook.com/BigGreenPolPod/" target="_blank" rel="noreferrer noopener"> Facebook.</a>
                     </p>
                 </div>
                 </div>
-                <div className="row">
+                <div className="row" data-aos="fade-right">
                     <div className="col s12 l4">
                         <img src={greenWave} alt="" className="responsive-img"/>
                     </div>
@@ -44,7 +60,7 @@ const PodcastPage = () => {
                         </p>
                     </div>
                 </div>
-                <div className="row">
+                <div className="row" data-aos="fade-left">
                     <div className="col s12 l4 push-l7 offset-l1">
                         <img src={greenSpace} alt="" className="responsive-img"/>
                     </div>
@@ -59,7 +75,8 @@ const PodcastPage = () => {
                         Green Space is produced by Seden Anlar & Julia Lagoutte – in collaboration with the Green Party of England and Wales.
                     </p>
                     <p>
-                        Available on all podcast apps including Itunes, Spotify, and Google. Listen directly here.
+                        Available on all podcast apps including Itunes, Spotify, and Google. Listen directly 
+                        <a href="https://anchor.fm/green-space" target="_blank" rel="noreferrer noopener"> here.</a>
                     </p>
                 </div>
             </div>

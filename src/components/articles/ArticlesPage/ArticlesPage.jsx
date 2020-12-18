@@ -66,8 +66,8 @@ const ArticlesPage = ({auth, articles, contents, editContent, deleteArticle}) =>
     ) : null;
 
     const renderContent = articlesPage !== undefined ? (
-        <div className="valign-wrapper">  
-            <p className="flow-text center">{articlesPage.header}</p>
+        <div className="center">  
+            <p className="flow-text">{articlesPage.header}</p>
             <div id="articles-edit">{editContentBtn}</div>
         </div>
     ) : (

@@ -13,7 +13,7 @@ const Post = ({data, auth, handleDelete}) => {
     const renderLink = () => {
         if (data.webLink.length){
             return(
-                <a href={data.webLink} className="btn green accent-4" target="_blank" rel="noreferrer noopener">Read More</a>
+                <a href={data.webLink} className="btn green accent-4" target="_blank" rel="noreferrer noopener">Read</a>
             )
         } else {
             return(
@@ -47,21 +47,30 @@ const Post = ({data, auth, handleDelete}) => {
     return (
         <article className="container">
             <div className="post card">
+                <div className="card-image waves-effect waves-block waves-light">
+                    <img src={data.imageUrl} alt="placeholder" className="activator responsive-img"/>
+                </div>
                 <div className="card-content row">
-                <img src={data.imageUrl} alt="placeholder" className="col s3 m3 l3"/>
                 <div className="right">
                     {renderDelete}
                 </div>
-                    <h4 className="col s9 m9 l9">{data.title}</h4>
-                    <p className="col s9 m9 l9 flow-text green-text text-accent-4">{moment(data.created.toDate()).calendar()} ({data.subject})</p>
-                    <div className="col s12 m12 l12">
-                    {createParas(data.abstract)}
-                    </div>            
-                    <div className="right">
+                    <span className="card-title activator green-text text-accent-4 flow-text col s10 m10 l10">{data.title}</span>           
+                    <div className="col s2 m2 l2">
                         {renderLink()}
                     </div>
                 </div>
+                <div className="card-reveal">
+                    <div className="container">
+                        <span className="card-title green-text text-accent-4 flow-text center">{data.title}</span>
+                        {createParas(data.abstract)}
+                        <div className="center">
+                            {renderLink()}
+                        </div>
+                    </div>
+                
+                </div> 
                 <div className="card-action grey lighten-4 grey-text">
+                    <p>{moment(data.created.toDate()).calendar()} ({data.subject})</p>
                     <div>{data.info}</div>
                 </div>  
             </div>

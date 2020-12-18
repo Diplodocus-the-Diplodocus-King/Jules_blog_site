@@ -22,8 +22,48 @@ textarea.materialize-textarea:focus:not([readonly]){
   box-shadow: none;
 }
 
-section{
-  margin-top: 15px !important;
+input[type=text]:not(.browser-default):focus:not([readonly])+label,
+input[type=email]:not(.browser-default):focus:not([readonly])+label,
+input[type=password]:not(.browser-default):focus:not([readonly])+label,
+textarea.materialize-textarea:focus:not([readonly])+label{
+  color: #00c853;
 }
 
+input[type="checkbox"]:checked+span:not(.lever)::before{
+  border-right: 2px solid #00c853;
+  border-bottom: 2px solid #00c853;
+}
 
+/* section#services, section#contact{
+  margin: 50px auto;
+} */
+
+.tabs .indicator{
+  background-color: #00c853;
+}
+
+.tabs .tab a:focus, .tabs .tab a:focus.active {
+  background-color: transparent;
+  outline: none;
+}
+
+section#featured img{
+  border-radius: 15px;
+}
+
+section#featured h2{
+  margin-bottom: 35px;
+}
+
+hr{
+  height: 2px;
+  margin: 35px auto !important;
+  border-radius: 5px;
+  border-style: none;
+  /* width: 50% !important; */
+}
+
+.nav-container{
+  width: 85%;
+  margin: auto;
+}
