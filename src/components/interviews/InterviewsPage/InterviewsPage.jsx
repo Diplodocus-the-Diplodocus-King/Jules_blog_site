@@ -56,7 +56,7 @@ const InterviewsPage = ({auth, interviews, contents, editContent, deleteIntervie
     }
 
     const renderInterviews = interviews && interviews.map(interview => {
-        return <Post data={interview} handleDelete={handleDelete} key={interview.id} />
+        return <Post data={interview} handleDelete={handleDelete} key={interview.id}/>
     });
 
     const editContentBtn = auth.uid ? (
@@ -66,8 +66,8 @@ const InterviewsPage = ({auth, interviews, contents, editContent, deleteIntervie
     ) : null;
 
     const renderContent = InterviewsPage !== undefined ? (
-        <div className="valign-wrapper">  
-            <p className="flow-text center">{interviewsPage.header}</p>
+        <div className="center">  
+            <p className="flow-text interview-header">{interviewsPage.header}</p>
             <div id="interviews-edit">{editContentBtn}</div>
         </div>
     ) : (
@@ -77,7 +77,7 @@ const InterviewsPage = ({auth, interviews, contents, editContent, deleteIntervie
     );
 
     return (
-        <section className="articles container">
+        <section className="interviews">
             <h2 className="green-text text-accent-4 center">Interviews</h2>
             {renderContent}
             {renderInterviews}

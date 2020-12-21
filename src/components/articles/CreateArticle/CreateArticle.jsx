@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
+import M from 'materialize-css';
 
 // redux
 import { connect } from 'react-redux';
@@ -15,10 +16,15 @@ const CreateArticle = ({createArticle, auth, history}) => {
         info: '',
         abstract: '',
         content: '',
+        created: new Date(),
         webLink: '',
-        imageUrl: '',
-        created: new Date()
+        imageUrl: ''
     });
+
+    useEffect(() => {
+        const datePicker = document.querySelector('.datepicker');
+        M.Datepicker.init(datePicker);
+    }, []);
 
     const handleChange = (e) => {
         const currentInput = {...formState};
@@ -51,7 +57,12 @@ const CreateArticle = ({createArticle, auth, history}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        createArticle(formState);
+        const currentInput = {...formState};
+        const dateInput = document.querySelector('#date');
+        if(dateInput.value.length){
+            currentInput.created = new Date(dateInput.value);
+        }
+        createArticle(currentInput);
         history.push('/articles');
     }
 
@@ -80,6 +91,10 @@ const CreateArticle = ({createArticle, auth, history}) => {
                 <div className="input-field">
                     <label htmlFor="info">Additional info</label>
                     <input type="text" id="info" onChange={handleChange}/>
+                </div>
+                <div className="input-field">
+                    <label htmlFor="date">Date</label>
+                    <input type="text" id="date" className="datepicker"/>
                 </div>
                 <div className="input-field">
                     <label htmlFor="imageUrl">Image URL</label>

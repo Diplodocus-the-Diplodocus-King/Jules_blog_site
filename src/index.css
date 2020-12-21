@@ -67,3 +67,23 @@ hr{
   width: 85%;
   margin: auto;
 }
+
+.articles-header, .interview-header{
+  display: inline-block;
+}
+
+#articles-edit, #interviews-edit{
+  display: inline-block;
+}
+
+.card-action{
+  padding: 0px 24px !important;
+}
+
+.card-table{
+  margin-bottom: 0px;
+}
+
+.card-para{
+  margin-bottom: 15px !important;
+}

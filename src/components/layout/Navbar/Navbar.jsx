@@ -59,7 +59,7 @@ const Navbar = ({auth}) => {
                                 </a>
                             </li>
                             <li>
-                                <a href="#" className="tooltipped btn-floating btn-small green accent-4" data-tooltip="Twitter">
+                                <a href="https://twitter.com/julialagoutte" className="tooltipped btn-floating btn-small green accent-4" data-tooltip="Twitter" target="_blank" rel="noreferrer noopener">
                                     <div className={styles.icon}>
                                         <FontAwesomeIcon icon={['fab', 'twitter']} />
                                     </div>

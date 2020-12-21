@@ -67,7 +67,7 @@ const ArticlesPage = ({auth, articles, contents, editContent, deleteArticle}) =>
 
     const renderContent = articlesPage !== undefined ? (
         <div className="center">  
-            <p className="flow-text">{articlesPage.header}</p>
+            <p className="flow-text articles-header">{articlesPage.header}</p>
             <div id="articles-edit">{editContentBtn}</div>
         </div>
     ) : (
@@ -77,7 +77,7 @@ const ArticlesPage = ({auth, articles, contents, editContent, deleteArticle}) =>
     );
 
     return (
-        <section className="articles container">
+        <section className="articles">
             <h2 className="green-text text-accent-4 center">Articles</h2>
             {renderContent}
             {renderArticles}
