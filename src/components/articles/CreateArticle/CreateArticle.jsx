@@ -16,6 +16,7 @@ const CreateArticle = ({createArticle, auth, history}) => {
         info: '',
         abstract: '',
         content: '',
+        author: '',
         created: new Date(),
         webLink: '',
         imageUrl: ''
@@ -45,6 +46,9 @@ const CreateArticle = ({createArticle, auth, history}) => {
             case 'content':
                 currentInput.content = e.target.value;
                 break;
+            case 'author':
+                currentInput.author = e.target.value;
+                break;
             case 'webLink':
                 currentInput.webLink = e.target.value;
                 break;
@@ -69,45 +73,51 @@ const CreateArticle = ({createArticle, auth, history}) => {
     if(!auth.uid) return <Redirect to='/signin' />
 
     return (
-        <div className="container">
-            <form onSubmit={handleSubmit} className="white">
-                <h3 className="green-text text-accent-4 center">Create Article</h3>
-                <div className="input-field">
-                    <label htmlFor="title">Title</label>
-                    <input type="text" id="title" onChange={handleChange}/>
-                </div>
-                <div className="input-field">
-                    <label htmlFor="subject">Subject</label>
-                    <input type="text" id="subject" onChange={handleChange}/>
-                </div>
-                <div className="input-field">
-                    <label htmlFor="abstract">Abstract</label>
-                    <textarea id="abstract" onChange={handleChange} className="materialize-textarea"/>
-                </div>
-                <div className="input-field">
-                    <label htmlFor="content">Content</label>
-                    <textarea id="content" onChange={handleChange} className="materialize-textarea"/>
-                </div>
-                <div className="input-field">
-                    <label htmlFor="info">Additional info</label>
-                    <input type="text" id="info" onChange={handleChange}/>
-                </div>
-                <div className="input-field">
-                    <label htmlFor="date">Date</label>
-                    <input type="text" id="date" className="datepicker"/>
-                </div>
-                <div className="input-field">
-                    <label htmlFor="imageUrl">Image URL</label>
-                    <input type="text" id="imageUrl" onChange={handleChange}/>
-                </div>
-                <div className="input-field">
-                    <label htmlFor="webLink">Web Link</label>
-                    <input type="text" id="webLink" onChange={handleChange}/>
-                </div>
-                <div className="input-field">
-                    <button className="btn green accent-4">Create</button>
-                </div>
-            </form>
+        <div className="form-container">
+            <div className="container">
+                <form onSubmit={handleSubmit} className="white">
+                    <h3 className="green-text text-accent-4 center">Create Article</h3>
+                    <div className="input-field">
+                        <label htmlFor="title">Title</label>
+                        <input type="text" id="title" onChange={handleChange}/>
+                    </div>
+                    <div className="input-field">
+                        <label htmlFor="subject">Subject</label>
+                        <input type="text" id="subject" onChange={handleChange}/>
+                    </div>
+                    <div className="input-field">
+                        <label htmlFor="abstract">Abstract</label>
+                        <textarea id="abstract" onChange={handleChange} className="materialize-textarea"/>
+                    </div>
+                    <div className="input-field">
+                        <label htmlFor="content">Content</label>
+                        <textarea id="content" onChange={handleChange} className="materialize-textarea"/>
+                    </div>
+                    <div className="input-field">
+                        <label htmlFor="author">author</label>
+                        <input type="text" id="Author" onChange={handleChange}/>
+                    </div>
+                    <div className="input-field">
+                        <label htmlFor="info">Additional info</label>
+                        <input type="text" id="info" onChange={handleChange}/>
+                    </div>
+                    <div className="input-field">
+                        <label htmlFor="date">Date</label>
+                        <input type="text" id="date" className="datepicker"/>
+                    </div>
+                    <div className="input-field">
+                        <label htmlFor="imageUrl">Image URL</label>
+                        <input type="text" id="imageUrl" onChange={handleChange}/>
+                    </div>
+                    <div className="input-field">
+                        <label htmlFor="webLink">Web Link</label>
+                        <input type="text" id="webLink" onChange={handleChange}/>
+                    </div>
+                    <div className="input-field center create-btn">
+                        <button className="btn green accent-4">Create</button>
+                    </div>
+                </form>
+            </div>
         </div>
     )
 }

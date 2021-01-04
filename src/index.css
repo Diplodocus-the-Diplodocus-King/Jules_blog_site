@@ -55,6 +55,10 @@ section#featured h2{
   margin-bottom: 35px;
 }
 
+section.articles{
+  min-height: 100vh;
+}
+
 hr{
   height: 2px;
   margin: 35px auto !important;
@@ -87,3 +91,30 @@ hr{
 .card-para{
   margin-bottom: 15px !important;
 }
+
+.form-container{
+  min-height: 100vh;
+  margin-top: 70px;
+}
+
+.login-form .input-field{
+  margin: 50px;
+}
+
+.landing-page{
+  margin-top: 70px;
+}
+
+.create-btn{
+  margin-top: 70px;
+}
+
+.card-subject{
+  display: inline-block;
+  margin-bottom: 8px;
+}
+
+.article-info{
+  font-style: italic;
+}
+

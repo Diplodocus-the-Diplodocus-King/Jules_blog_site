@@ -22,6 +22,8 @@ const ArticlesPage = ({auth, articles, contents, editContent, deleteArticle}) =>
         fields: {}
     });
 
+    const [searchValue, setSearchValue] = useState('');
+
     useEffect(() => {
         const modals = document.querySelectorAll('.modal');
         M.Modal.init(modals);
@@ -47,7 +49,6 @@ const ArticlesPage = ({auth, articles, contents, editContent, deleteArticle}) =>
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(editContentState)
         editContent(editContentState);
     }
 
@@ -56,8 +57,20 @@ const ArticlesPage = ({auth, articles, contents, editContent, deleteArticle}) =>
     }
 
     const renderArticles = articles && articles.map(article => {
-        return <Post data={article} handleDelete={handleDelete} key={article.id} />
+        if(searchValue.length !== 0 && (article.title.toLowerCase().includes(searchValue) || article.subject.toLowerCase().includes(searchValue))){
+            return <Post data={article} handleDelete={handleDelete} key={article.id} />
+        } else if (searchValue.length === 0) {
+            return <Post data={article} handleDelete={handleDelete} key={article.id} />
+        }
     });
+
+    const handleSearch = (e) => {
+        setSearchValue(e.target.value.toLowerCase());
+    }
+
+    const handleSearchSubmit = (e) => {
+        e.preventDefault();
+    }
 
     const editContentBtn = auth.uid ? (
         <button className="btn-floating btn-small green accent-4 waves-effect waves-light right modal-trigger" data-target="modalEditArticles" onClick={handleClick}>
@@ -69,6 +82,14 @@ const ArticlesPage = ({auth, articles, contents, editContent, deleteArticle}) =>
         <div className="center">  
             <p className="flow-text articles-header">{articlesPage.header}</p>
             <div id="articles-edit">{editContentBtn}</div>
+            <div className="container">
+                <form onSubmit={handleSearchSubmit}>
+                    <div className="input-field">
+                        <label htmlFor="search">Search</label>
+                        <input type="text" id="search" onChange={handleSearch}/>
+                    </div>
+                </form>
+            </div>
         </div>
     ) : (
         <div className="progress">

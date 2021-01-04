@@ -18,7 +18,7 @@ const Post = ({data, auth, handleDelete}) => {
             duration: 1500
         });
         AOS.refresh();
-    }, []);
+    });
 
     const renderLink = () => {
         if (data.webLink.length){
@@ -63,9 +63,9 @@ const Post = ({data, auth, handleDelete}) => {
     ) : null;
 
     return (
-        <article className="container" data-aos="fade-up">
+        <article className="container" data-aos="fade-up" id={data.id}>
             <div className="post card horizontal">
-                <div className="card-image hide-on-med-and-down valign-wrapper green accent-4">
+                <div className="card-image hide-on-med-and-down valign-wrapper grey darken-4">
                     <img src={data.imageUrl} alt="placeholder" className="responsive-img"/>
                 </div>
                 <div className="card-stacked">
@@ -73,17 +73,18 @@ const Post = ({data, auth, handleDelete}) => {
                     <div className="right">
                         {renderDelete}
                     </div>
-                        <span className="card-title activator green-text text-accent-4 flow-text">{data.title}</span>   
+                        <span className="card-title green-text text-accent-4 flow-text">{data.title}</span> 
+                        <span className="card-subject">{data.subject}</span>
                         {createParas(data.abstract)}       
                     </div>
                     <div className="card-action grey lighten-4 grey-text">
                         <div className="row valign-wrapper card-table">
                             <div className="action-content col s9 m10 l10">
-                                <p>{moment(data.created.toDate()).calendar()} ({data.subject})</p>
+                                <p>Posted by {data.author}, {moment(data.created.toDate()).calendar()}</p>
                                 <p>{data.info}</p> 
                             </div>
                             <div className="right col s3 m2 l2">
-                                    {renderLink()}
+                                {renderLink()}
                             </div> 
                         </div>
                     </div> 

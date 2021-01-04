@@ -22,6 +22,8 @@ const InterviewsPage = ({auth, interviews, contents, editContent, deleteIntervie
         fields: {}
     });
 
+    const [searchValue, setSearchValue] = useState('');
+
     useEffect(() => {
         const modals = document.querySelectorAll('.modal');
         M.Modal.init(modals);
@@ -56,8 +58,20 @@ const InterviewsPage = ({auth, interviews, contents, editContent, deleteIntervie
     }
 
     const renderInterviews = interviews && interviews.map(interview => {
-        return <Post data={interview} handleDelete={handleDelete} key={interview.id}/>
+        if(searchValue.length !== 0 && (interview.title.toLowerCase().includes(searchValue) || interview.subject.toLowerCase().includes(searchValue))){
+            return <Post data={interview} handleDelete={handleDelete} key={interview.id} />
+        } else if (searchValue.length === 0) {
+            return <Post data={interview} handleDelete={handleDelete} key={interview.id} />
+        }
     });
+
+    const handleSearch = (e) => {
+        setSearchValue(e.target.value.toLowerCase());
+    }
+
+    const handleSearchSubmit = (e) => {
+        e.preventDefault();
+    }
 
     const editContentBtn = auth.uid ? (
         <button className="btn-floating btn-small green accent-4 waves-effect waves-light right modal-trigger" data-target="modalEditInterviews" onClick={handleClick}>
@@ -69,6 +83,14 @@ const InterviewsPage = ({auth, interviews, contents, editContent, deleteIntervie
         <div className="center">  
             <p className="flow-text interview-header">{interviewsPage.header}</p>
             <div id="interviews-edit">{editContentBtn}</div>
+            <div className="container">
+                <form onSubmit={handleSearchSubmit}>
+                    <div className="input-field">
+                        <label htmlFor="search">Search</label>
+                        <input type="text" id="search" onChange={handleSearch}/>
+                    </div>
+                </form>
+            </div>
         </div>
     ) : (
         <div className="progress">

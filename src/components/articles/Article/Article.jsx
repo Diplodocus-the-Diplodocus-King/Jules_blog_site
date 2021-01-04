@@ -26,14 +26,18 @@ const Article = (props) => {
 
     if (article) {
         return (
-            <div className="container section project-details">
-                <h3>{article.title}</h3>
-                <h4 className="green-text text-accent-4">{article.subject}</h4>
-                <div className="flow-text">{createParas(article.abstract, 'abstract')}</div>
-                <img src={article.imgUrl} alt="article_img"/>
-                {createParas(article.content, 'content')}
-                <div>Posted by {article.info}</div>
-                <div>{moment(article.created.toDate()).calendar()}</div>
+            <div className="article-container">
+                <img src={article.imageUrl} alt="article_img" className="responsive-img"/>
+                <div className="container section project-details">
+                    <h3>{article.title}</h3>
+                    <h4 className="green-text text-accent-4">{article.subject}</h4>
+                    <div className="flow-text">{createParas(article.abstract, 'abstract')}</div>
+                    {createParas(article.content, 'content')}
+                    <div className="article-info">
+                        <div>Posted by {article.author}</div>
+                        <div>{moment(article.created.toDate()).calendar()}</div>
+                    </div>
+                </div>
             </div>
         )
     } else {
