@@ -56,6 +56,12 @@ const articleReducer = (state = initState, action) => {
         case 'DELETE_ARTICLE_ERROR':
             console.log('delete article error', action.error);
             return state;
+        case 'EDIT_ARTICLE':
+            console.log('article editted', action.article);
+            return state;
+        case 'EDIT_ARTICLE_ERROR':
+            console.log('edit article error', action.error);
+            return state;
         default:
             return state;
     }

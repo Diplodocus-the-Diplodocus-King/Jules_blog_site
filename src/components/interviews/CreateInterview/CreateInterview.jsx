@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import M from 'materialize-css';
+import moment from 'moment';
 
 // redux
 import { connect } from 'react-redux';
 
 // actions
-import { createInterview } from '../../../store/actions/interviewActions'; 
+import { createInterview, editInterview } from '../../../store/actions/interviewActions'; 
 
-const CreateInterview = ({createInterview, auth, history}) => {
+const CreateInterview = ({createInterview, editInterview, auth, history, location}) => {
 
     const [formState, setFormState] = useState({
         title: '',
@@ -24,6 +25,28 @@ const CreateInterview = ({createInterview, auth, history}) => {
     useEffect(() => {
         const datePicker = document.querySelector('.datepicker');
         M.Datepicker.init(datePicker);
+
+        // load data in only for editting articles.
+        if(location.state !== null){
+
+            setFormState(location.state.post);
+
+            document.querySelector('form').querySelectorAll('label').forEach(label => {
+                if(location.state.post[`${label.getAttribute('for')}`].length !== 0){
+                    label.classList.add('active');
+                } 
+            });
+
+            document.getElementById('title').value = location.state.post.title;
+            document.getElementById('subject').value = location.state.post.subject;
+            document.getElementById('abstract').value = location.state.post.abstract;
+            document.getElementById('author').value = location.state.post.author;
+            document.getElementById('info').value = location.state.post.info;
+            document.getElementById('created').value = moment(location.state.post.created.toDate());
+            document.getElementById('imageUrl').value = location.state.post.imageUrl;
+            document.getElementById('webLink').value = location.state.post.webLink;
+        }
+
     }, []);
 
     const handleChange = (e) => {
@@ -57,13 +80,22 @@ const CreateInterview = ({createInterview, auth, history}) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         const currentInput = {...formState};
-        const dateInput = document.querySelector('#date');
+        const dateInput = document.querySelector('#created');
+
         if(dateInput.value.length){
             currentInput.created = new Date(dateInput.value);
         }
-        createInterview(currentInput);
+
+        if(location.state !== null){
+            editInterview(currentInput);
+        } else {
+            createInterview(currentInput);
+        }
+
         history.push('/interviews');
     }
+
+    const formText = location.state !== null ? 'Edit' : 'Create'
 
     if(!auth.uid) return <Redirect to='/signin' />
 
@@ -71,7 +103,7 @@ const CreateInterview = ({createInterview, auth, history}) => {
         <div className="form-container">
             <div className="container">
                 <form onSubmit={handleSubmit} className="white">
-                    <h3 className="green-text text-accent-4 center">Create Interview</h3>
+                    <h3 className="green-text text-accent-4 center">{formText} Interview</h3>
                     <div className="input-field">
                         <label htmlFor="title">Title</label>
                         <input type="text" id="title" onChange={handleChange}/>
@@ -93,8 +125,8 @@ const CreateInterview = ({createInterview, auth, history}) => {
                         <input type="text" id="info" onChange={handleChange}/>
                     </div>
                     <div className="input-field">
-                        <label htmlFor="date">Date</label>
-                        <input type="text" id="date" className="datepicker"/>
+                        <label htmlFor="created">Date</label>
+                        <input type="text" id="created" className="datepicker"/>
                     </div>
                     <div className="input-field">
                         <label htmlFor="imageUrl">Image URL</label>
@@ -105,7 +137,7 @@ const CreateInterview = ({createInterview, auth, history}) => {
                         <input type="text" id="webLink" onChange={handleChange}/>
                     </div>
                     <div className="input-field center create-btn">
-                        <button className="btn green accent-4">Create</button>
+                        <button className="btn green accent-4">{formText}</button>
                     </div>
                 </form>
             </div>
@@ -121,7 +153,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        createInterview: (interview) => dispatch(createInterview(interview))
+        createInterview: (interview) => dispatch(createInterview(interview)),
+        editInterview: (interview) => dispatch(editInterview(interview))
     }
 }
 

@@ -16,3 +16,12 @@ export const deleteArticle = (article) => {
             .catch(error => dispatch({type: 'DELETE_ARTICLE_ERROR', error}))
     }
 }
+
+export const editArticle = (article) => {
+    return (dispatch, getState, {getFirebase, getFirestore}) => {
+        const firestore = getFirestore();
+        firestore.collection('articles').doc(article.id).set({...article})
+            .then(() => dispatch({type: 'EDIT_ARTICLE', article}))
+            .catch(error => dispatch({type: 'EDIT_ARTICLE_ERROR'}))
+    }
+}

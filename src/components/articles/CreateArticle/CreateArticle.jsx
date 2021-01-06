@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import M from 'materialize-css';
+import moment from 'moment';
 
 // redux
 import { connect } from 'react-redux';
 
 // actions
-import { createArticle } from '../../../store/actions/articleActions'; 
+import { createArticle, editArticle } from '../../../store/actions/articleActions'; 
 
-const CreateArticle = ({createArticle, auth, history}) => {
+const CreateArticle = ({createArticle, editArticle, auth, history, location}) => {
+
 
     const [formState, setFormState] = useState({
         title: '',
@@ -25,6 +27,28 @@ const CreateArticle = ({createArticle, auth, history}) => {
     useEffect(() => {
         const datePicker = document.querySelector('.datepicker');
         M.Datepicker.init(datePicker);
+
+        // load data in only for editting articles.
+        if(location.state !== null){
+
+            setFormState(location.state.post);
+
+            document.querySelector('form').querySelectorAll('label').forEach(label => {
+                if(location.state.post[`${label.getAttribute('for')}`].length !== 0){
+                    label.classList.add('active');
+                } 
+            });
+
+            document.getElementById('title').value = location.state.post.title;
+            document.getElementById('subject').value = location.state.post.subject;
+            document.getElementById('abstract').value = location.state.post.abstract;
+            document.getElementById('content').value = location.state.post.content;
+            document.getElementById('author').value = location.state.post.author;
+            document.getElementById('info').value = location.state.post.info;
+            document.getElementById('created').value = moment(location.state.post.created.toDate());
+            document.getElementById('imageUrl').value = location.state.post.imageUrl;
+            document.getElementById('webLink').value = location.state.post.webLink;
+        }
     }, []);
 
     const handleChange = (e) => {
@@ -62,13 +86,22 @@ const CreateArticle = ({createArticle, auth, history}) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         const currentInput = {...formState};
-        const dateInput = document.querySelector('#date');
+        const dateInput = document.querySelector('#created');
+
         if(dateInput.value.length){
             currentInput.created = new Date(dateInput.value);
         }
-        createArticle(currentInput);
+
+        if(location.state !== null){
+            editArticle(currentInput);
+        } else {
+            createArticle(currentInput);
+        }
+        
         history.push('/articles');
     }
+
+    const formText = location.state !== null ? 'Edit' : 'Create'
 
     if(!auth.uid) return <Redirect to='/signin' />
 
@@ -76,7 +109,7 @@ const CreateArticle = ({createArticle, auth, history}) => {
         <div className="form-container">
             <div className="container">
                 <form onSubmit={handleSubmit} className="white">
-                    <h3 className="green-text text-accent-4 center">Create Article</h3>
+                    <h3 className="green-text text-accent-4 center">{formText} Article</h3>
                     <div className="input-field">
                         <label htmlFor="title">Title</label>
                         <input type="text" id="title" onChange={handleChange}/>
@@ -94,16 +127,16 @@ const CreateArticle = ({createArticle, auth, history}) => {
                         <textarea id="content" onChange={handleChange} className="materialize-textarea"/>
                     </div>
                     <div className="input-field">
-                        <label htmlFor="author">author</label>
-                        <input type="text" id="Author" onChange={handleChange}/>
+                        <label htmlFor="author">Author</label>
+                        <input type="text" id="author" onChange={handleChange}/>
                     </div>
                     <div className="input-field">
                         <label htmlFor="info">Additional info</label>
                         <input type="text" id="info" onChange={handleChange}/>
                     </div>
                     <div className="input-field">
-                        <label htmlFor="date">Date</label>
-                        <input type="text" id="date" className="datepicker"/>
+                        <label htmlFor="created">Date</label>
+                        <input type="text" id="created" className="datepicker"/>
                     </div>
                     <div className="input-field">
                         <label htmlFor="imageUrl">Image URL</label>
@@ -114,7 +147,7 @@ const CreateArticle = ({createArticle, auth, history}) => {
                         <input type="text" id="webLink" onChange={handleChange}/>
                     </div>
                     <div className="input-field center create-btn">
-                        <button className="btn green accent-4">Create</button>
+                        <button className="btn green accent-4">{formText}</button>
                     </div>
                 </form>
             </div>
@@ -130,7 +163,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        createArticle: (article) => dispatch(createArticle(article))
+        createArticle: (article) => dispatch(createArticle(article)),
+        editArticle: (article) => dispatch(editArticle(article))
     }
 }
 

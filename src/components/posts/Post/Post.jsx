@@ -11,7 +11,7 @@ import { connect } from 'react-redux';
 //styles
 import styles from './Post.module.scss';
 
-const Post = ({data, auth, handleDelete}) => {
+const Post = ({data, auth, handleDelete, type}) => {
 
     useEffect(() => {
         AOS.init({
@@ -56,11 +56,24 @@ const Post = ({data, auth, handleDelete}) => {
         );  
     }
 
+    const renderEdit = auth.uid ? (
+            <Link to={{
+                pathname: `/create${type}`,
+                state: {post: data}
+            }}>
+            <button className="btn-floating btn-small orange accent-4 waves-effect waves-light right">
+                <i className="material-icons">edit</i>
+            </button>
+            </Link>
+        ) : null
+    
+
     const renderDelete = auth.uid ? (
-        <button className="btn-floating btn-small green accent-4 waves-effect waves-light right" onClick={() => handleDelete(data)}>
-            <i className="material-icons">delete</i>
-        </button>
+            <button className="btn-floating btn-small red accent-4 waves-effect waves-light right" onClick={() => handleDelete(data)}>
+                <i className="material-icons">delete</i>
+            </button>
     ) : null;
+
 
     return (
         <article className="container" data-aos="fade-up" id={data.id}>
@@ -72,6 +85,7 @@ const Post = ({data, auth, handleDelete}) => {
                     <div className="card-content">
                     <div className="right">
                         {renderDelete}
+                        {renderEdit}
                     </div>
                         <span className="card-title green-text text-accent-4 flow-text">{data.title}</span> 
                         <span className="card-subject">{data.subject}</span>

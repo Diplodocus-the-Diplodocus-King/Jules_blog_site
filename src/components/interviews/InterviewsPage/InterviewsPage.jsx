@@ -59,9 +59,9 @@ const InterviewsPage = ({auth, interviews, contents, editContent, deleteIntervie
 
     const renderInterviews = interviews && interviews.map(interview => {
         if(searchValue.length !== 0 && (interview.title.toLowerCase().includes(searchValue) || interview.subject.toLowerCase().includes(searchValue))){
-            return <Post data={interview} handleDelete={handleDelete} key={interview.id} />
+            return <Post type='interview' data={interview} handleDelete={handleDelete} key={interview.id} />
         } else if (searchValue.length === 0) {
-            return <Post data={interview} handleDelete={handleDelete} key={interview.id} />
+            return <Post type='interview' data={interview} handleDelete={handleDelete} key={interview.id} />
         }
     });
 

@@ -82,6 +82,7 @@ const Navbar = ({auth}) => {
                 <li><NavLink to="/articles">Articles</NavLink></li>
                 <li><NavLink to="/interviews">Interviews</NavLink></li>
                 <li><NavLink to="/podcasts">Podcasts</NavLink></li>
+                <li>{auth.isLoaded && links}</li>
             </ul>
         </header>
     )

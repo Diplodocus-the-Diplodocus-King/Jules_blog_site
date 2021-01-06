@@ -58,9 +58,9 @@ const ArticlesPage = ({auth, articles, contents, editContent, deleteArticle}) =>
 
     const renderArticles = articles && articles.map(article => {
         if(searchValue.length !== 0 && (article.title.toLowerCase().includes(searchValue) || article.subject.toLowerCase().includes(searchValue))){
-            return <Post data={article} handleDelete={handleDelete} key={article.id} />
+            return <Post type='article' data={article} handleDelete={handleDelete} key={article.id} />
         } else if (searchValue.length === 0) {
-            return <Post data={article} handleDelete={handleDelete} key={article.id} />
+            return <Post type='article' data={article} handleDelete={handleDelete} key={article.id} />
         }
     });
 

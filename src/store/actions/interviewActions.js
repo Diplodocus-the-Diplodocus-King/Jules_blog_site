@@ -16,3 +16,12 @@ export const deleteInterview = (interview) => {
             .catch(error => dispatch({type: 'DELETE_INTERVIEW_ERROR', error}))
     }
 }
+
+export const editInterview = (interview) => {
+    return (dispatch, getState, {getFirebase, getFirestore}) => {
+        const firestore = getFirestore();
+        firestore.collection('interviews').doc(interview.id).set({...interview})
+            .then(() => dispatch({type: 'EDIT_ARTICLE', interview}))
+            .catch(error => dispatch({type: 'EDIT_ARTICLE_ERROR'}))
+    }
+}
